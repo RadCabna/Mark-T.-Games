@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+class Arrays {
+    
+    static var languagesImage = ["englishLanguage", "frenchLanguage", "germanLanguage", "spainLanguage"]
+    
+}
