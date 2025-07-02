@@ -17,7 +17,7 @@ struct Buttons: View {
             .frame(width: screenWidth*size)
             .overlay(
                 Text(text)
-                    .font(Font.custom("PassionOne-Regular", size: screenWidth*size*0.15))
+                    .font(Font.custom("PassionOne-Regular", size: screenWidth*size*0.13))
                     .foregroundColor(.white)
 
             )

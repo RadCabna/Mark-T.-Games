@@ -10,11 +10,13 @@ import SwiftUI
 struct MainMenu: View {
     @EnvironmentObject var coordinator: Coordinator
     @AppStorage("coinCount") var coinCount = 0
+    @AppStorage("languageIndex") var languageIndex = 0
     @State private var angle: Double = -90
     @State private var angle1: Double = -90
     @State private var angle2: Double = -90
     @State private var angle3: Double = -90
     @State private var darckOpacity: CGFloat = 0
+    @State private var menuTextArray = Arrays.mainMenuTextArray
     var body: some View {
         ZStack {
             Background(backgroundNumber: 1)
@@ -22,16 +24,16 @@ struct MainMenu: View {
                 Image("settingsButton")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: screenWidth*0.06)
+                    .frame(width: screenWidth*0.05)
                 Spacer()
                 Image("coin")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: screenWidth*0.06)
+                    .frame(width: screenWidth*0.05)
                 Image("coinFrame")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: screenWidth*0.23)
+                    .frame(width: screenWidth*0.2)
                     .overlay(
                         Text("\(coinCount)")
                             .font(Font.custom("PassionOne-Regular", size: screenWidth*0.04))
@@ -44,28 +46,28 @@ struct MainMenu: View {
             .padding(.top)
             .opacity(darckOpacity)
             VStack {
-                Buttons(size: 0.3, text: "Start The Game")
+                Buttons(size: 0.3, text: menuTextArray[languageIndex][0])
                     .offset(y: screenWidth*0.05)
                     .rotation3DEffect(
                         .degrees(angle),
                         axis: (x: 1, y: 0, z: 0)
                     )
                     .offset(y: -screenWidth*0.05)
-                Buttons(size: 0.3, text: "Store")
+                Buttons(size: 0.3, text: menuTextArray[languageIndex][1])
                     .offset(y: screenWidth*0.05)
                     .rotation3DEffect(
                         .degrees(angle1),
                         axis: (x: 1, y: 0, z: 0)
                     )
                     .offset(y: -screenWidth*0.05)
-                Buttons(size: 0.3, text: "Achievements")
+                Buttons(size: 0.3, text: menuTextArray[languageIndex][2])
                     .offset(y: screenWidth*0.05)
                     .rotation3DEffect(
                         .degrees(angle2),
                         axis: (x: 1, y: 0, z: 0)
                     )
                     .offset(y: -screenWidth*0.05)
-                Buttons(size: 0.3, text: "Daily Quest")
+                Buttons(size: 0.3, text: menuTextArray[languageIndex][3])
                     .offset(y: screenWidth*0.05)
                     .rotation3DEffect(
                         .degrees(angle3),
@@ -73,7 +75,7 @@ struct MainMenu: View {
                     )
                     .offset(y: -screenWidth*0.05)
             }
-            .offset(y: screenWidth*0.04)
+            .offset(y: screenWidth*0.01)
         }
         
         .onAppear {
