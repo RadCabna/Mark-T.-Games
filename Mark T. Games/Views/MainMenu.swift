@@ -25,6 +25,12 @@ struct MainMenu: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: screenWidth*0.05)
+                    .onTapGesture {
+                        closeMenuAnimation()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            coordinator.navigate(to: .settings)
+                        }
+                    }
                 Spacer()
                 Image("coin")
                     .resizable()
@@ -52,6 +58,12 @@ struct MainMenu: View {
                         .degrees(angle),
                         axis: (x: 1, y: 0, z: 0)
                     )
+                    .onTapGesture {
+                        closeMenuAnimation()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            coordinator.navigate(to: .choseLevel)
+                        }
+                    }
                     .offset(y: -screenWidth*0.05)
                 Buttons(size: 0.3, text: menuTextArray[languageIndex][1])
                     .offset(y: screenWidth*0.05)
@@ -59,6 +71,12 @@ struct MainMenu: View {
                         .degrees(angle1),
                         axis: (x: 1, y: 0, z: 0)
                     )
+                    .onTapGesture {
+                        closeMenuAnimation()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            coordinator.navigate(to: .shop)
+                        }
+                    }
                     .offset(y: -screenWidth*0.05)
                 Buttons(size: 0.3, text: menuTextArray[languageIndex][2])
                     .offset(y: screenWidth*0.05)
@@ -66,6 +84,12 @@ struct MainMenu: View {
                         .degrees(angle2),
                         axis: (x: 1, y: 0, z: 0)
                     )
+                    .onTapGesture {
+                        closeMenuAnimation()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            coordinator.navigate(to: .achievements)
+                        }
+                    }
                     .offset(y: -screenWidth*0.05)
                 Buttons(size: 0.3, text: menuTextArray[languageIndex][3])
                     .offset(y: screenWidth*0.05)
@@ -73,6 +97,12 @@ struct MainMenu: View {
                         .degrees(angle3),
                         axis: (x: 1, y: 0, z: 0)
                     )
+                    .onTapGesture {
+                        closeMenuAnimation()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            coordinator.navigate(to: .quest)
+                        }
+                    }
                     .offset(y: -screenWidth*0.05)
             }
             .offset(y: screenWidth*0.01)

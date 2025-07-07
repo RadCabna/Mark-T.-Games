@@ -21,10 +21,16 @@ struct Settings: View {
         ZStack {
             Background(backgroundNumber: 1)
             HStack {
-                Image("settingsButton")
+                Image("backButton")
                     .resizable()
                     .scaledToFit()
                     .frame(width: screenWidth*0.05)
+                    .onTapGesture {
+                        closeMenuAnimation()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            coordinator.navigateBack()
+                        }
+                    }
                 Spacer()
                 Image("coin")
                     .resizable()
