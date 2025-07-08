@@ -32,8 +32,8 @@ struct MenInGame: Equatable {
     var blinkTimer: Timer? = nil
     var shadowRadius: CGFloat = 0
     var sideLeft:CGFloat = 1
-    var xPosition = 0
-    var yPosition = 0
+    var xPosition: Int = 5
+    var yPosition: Int = 5
 }
 
 struct Resourses: Equatable {
@@ -45,6 +45,8 @@ struct Resourses: Equatable {
 
 class Arrays {
     
+    static var achievementsArray = ["achieve1","achieve2","achieve3","achieve4","achieve5",]
+    
     static var level1ResursesArray = [
         [Resourses(),Resourses(),Resourses(wood: 2),Resourses(),Resourses(),Resourses()],
         [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
@@ -53,6 +55,44 @@ class Arrays {
         [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
         [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()]
     ]
+    
+    static var level2ResursesArray = [
+        [Resourses(wood: 2),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(thread: 2),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(stone: 2),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()]
+    ]
+    
+    static var level3ResursesArray = [
+        [Resourses(thread: 2),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(wood: 1),Resourses(wood: 1),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(stone: 2),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()]
+    ]
+    
+    static var level4ResursesArray = [
+        [Resourses(wood: 2),Resourses(wood: 2),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(thread: 2),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(stone: 3),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()]
+    ]
+    
+    static var level5ResursesArray = [
+        [Resourses(),Resourses(),Resourses(wood: 2),Resourses(wood: 2),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(thread: 1),Resourses(),Resourses(),Resourses()],
+        [Resourses(thread: 1),Resourses(stone: 2),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()],
+        [Resourses(),Resourses(),Resourses(),Resourses(),Resourses(),Resourses()]
+    ]
+    
+    static var levelsArray = [level1ResursesArray,level2ResursesArray,level3ResursesArray,level4ResursesArray,level5ResursesArray]
     
     static var menInGameArray: [MenInGame] = [
         MenInGame(offsetX: -300, offsetY: -33),

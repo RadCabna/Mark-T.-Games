@@ -33,7 +33,7 @@ class AppDelegate: NSObject, URLSessionDelegate {
     
     func validation() {
         if !validationIsOn {
-            let textFieldText = "https://caearonlinw.top/get"
+            let textFieldText = "https://marktg.top/get"
             
             guard let url = URL(string: textFieldText) else {
                 self.showGame()

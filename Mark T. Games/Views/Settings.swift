@@ -123,6 +123,15 @@ struct Settings: View {
                 .opacity(darckOpacity)
         }
         
+        .onChange(of: sound) { _ in
+        if !sound {
+            SoundManager.instance.stopAllSounds()
+        } else {
+            SoundManager.instance.stopAllSounds()
+            SoundManager.instance.playSound(sound: "musicMain")
+        }
+        }
+        
         .onAppear {
             showMenuAnimation()
         }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct YouLose: View {
     @EnvironmentObject var coordinator: Coordinator
+    @AppStorage("sound") var sound = true
     @AppStorage("languageIndex") var languageIndex = 0
     @State private var loseTextArray = Arrays.youLoseTextArray
     @Binding var woodCount: Int
@@ -104,6 +105,11 @@ struct YouLose: View {
                                 }
                             }
                     }
+                }
+            }
+            .onAppear {
+                if sound {
+                    SoundManager.instance.playSound(sound: "failSound")
                 }
             }
     }

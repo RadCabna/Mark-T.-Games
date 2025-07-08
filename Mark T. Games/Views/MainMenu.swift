@@ -9,7 +9,9 @@ import SwiftUI
 
 struct MainMenu: View {
     @EnvironmentObject var coordinator: Coordinator
+    @AppStorage("sound") var sound = true
     @AppStorage("coinCount") var coinCount = 0
+    @AppStorage("selectedBackground") var selectedBackground = 1
     @AppStorage("languageIndex") var languageIndex = 0
     @State private var angle: Double = -90
     @State private var angle1: Double = -90
@@ -19,7 +21,7 @@ struct MainMenu: View {
     @State private var menuTextArray = Arrays.mainMenuTextArray
     var body: some View {
         ZStack {
-            Background(backgroundNumber: 1)
+            Background(backgroundNumber: selectedBackground)
             HStack {
                 Image("settingsButton")
                     .resizable()
@@ -109,6 +111,12 @@ struct MainMenu: View {
         }
         
         .onAppear {
+            if !sound {
+                SoundManager.instance.stopAllSounds()
+            } else {
+                SoundManager.instance.stopAllSounds()
+                SoundManager.instance.playSound(sound: "musicMain")
+            }
             showMenuAnimation()
             buttonAnimation(delay: 0, angle: $angle)
             buttonAnimation(delay: 0.1, angle: $angle1)

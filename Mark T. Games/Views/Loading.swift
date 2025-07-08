@@ -20,7 +20,11 @@ struct Loading: View {
             if isLandscape {
                 ZStack {
                     Background(backgroundNumber: 6)
-                    VStack(spacing: height*0.2) {
+                    VStack() {
+                        Image("icon")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width*0.2)
                         Text("Fun Starts Here")
                             .font(Font.custom("PassionOne-Regular", size: width*0.08))
                             .foregroundColor(Color("loadingTextColor"))
@@ -56,7 +60,11 @@ struct Loading: View {
             } else {
                 ZStack {
                     Background(backgroundNumber: 6)
-                    VStack(spacing: height*0.2) {
+                    VStack() {
+                        Image("icon")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: height*0.2)
                         Text("Fun Starts Here")
                             .font(Font.custom("PassionOne-Regular", size: height*0.08))
                             .foregroundColor(Color("loadingTextColor"))
@@ -85,7 +93,7 @@ struct Loading: View {
                                 .shadow(color: .black, radius: 2)
                         }
                     }
-                    .offset(y: height*0.05)
+//                    .offset(y: height*0.05)
                     .rotationEffect(Angle(degrees: -90))
                     .opacity(loadingOpacity)
                 }

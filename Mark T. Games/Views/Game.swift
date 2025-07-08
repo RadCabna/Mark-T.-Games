@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Game: View {
     @EnvironmentObject var coordinator: Coordinator
+    @AppStorage("sound") var sound = true
     @AppStorage("languageIndex") var languageIndex = 0
     @AppStorage("selectedSkin") var selectedSkin = 0
     @AppStorage("levelNumber") var levelNumber = 1
@@ -23,8 +24,8 @@ struct Game: View {
     @State private var threadCount = 0
     @State private var threadTarget = 2
     @State private var steps = 0
-    @State private var menCount = 5
-    @State private var menRemainingCount = 5
+    @State private var menCount = 1
+    @State private var menRemainingCount = 1
     @State private var selectedMenIndex = 0
     @State private var canMakeStep = false
     @State private var canChose = true
@@ -189,7 +190,20 @@ struct Game: View {
                                     .frame(width: screenWidth*0.076)
                                     .offset(x: cageArray[row][col].offsetX * screenWidth/880, y: cageArray[row][col].offsetY * screenWidth/880)
                             }
-                        
+                        if cageArray[row][col].brokeIndex >= 1 {
+                            Image("crackRectangle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: screenWidth*0.08)
+                                .offset(x: cageArray[row][col].offsetX * screenWidth/880, y: cageArray[row][col].offsetY * screenWidth/880)
+                        }
+                        if cageArray[row][col].brokeIndex == 2 {
+                            Image("brokenRectangle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: screenWidth*0.08)
+                                .offset(x: cageArray[row][col].offsetX * screenWidth/880, y: cageArray[row][col].offsetY * screenWidth/880)
+                        }
                     }
                     .onTapGesture {
                         makeStep(row: row, col: col)
@@ -302,6 +316,15 @@ struct Game: View {
             }
         }
         
+        .onChange(of: menRemainingCount) { _ in
+            if menRemainingCount == 0 {
+                showDarknessAnimation()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    youLose = true
+                }
+            }
+        }
+        
         .onChange(of: menInGameArray) { _ in
             if checkCompleteStep() {
                 for i in 0..<menInGameArray.count {
@@ -311,6 +334,21 @@ struct Game: View {
                 }
                 steps += 1
             }
+            
+        }
+        
+        .onChange(of: steps) { _ in
+            if steps == 10 {
+                showDarknessAnimation()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    youLose = true
+                }
+            }
+        }
+        
+        .onChange(of: steps) { _ in
+            brokeCages()
+            checkMenLife()
         }
         
         .onChange(of: pauseTapped) { _ in
@@ -320,10 +358,65 @@ struct Game: View {
         }
         
         .onAppear  {
+            updateLevel()
             changePersSign()
             updateMenArray()
         }
         
+    }
+    
+    func updateLevel() {
+        switch levelNumber {
+        case 1:
+            woodTarget = 2
+            stoneTarget = 2
+            threadTarget = 2
+            menCount = 5
+            menRemainingCount = 5
+            targetImage = "cart"
+            resourcesArray = Arrays.level1ResursesArray
+        case 2:
+            woodTarget = 2
+            stoneTarget = 2
+            threadTarget = 2
+            menCount = 5
+            menRemainingCount = 5
+            targetImage = "ship"
+            resourcesArray = Arrays.level2ResursesArray
+        case 3:
+            woodTarget = 2
+            stoneTarget = 2
+            threadTarget = 2
+            menCount = 4
+            menRemainingCount = 4
+            targetImage = "baloon"
+            resourcesArray = Arrays.level3ResursesArray
+        case 4:
+            woodTarget = 4
+            stoneTarget = 3
+            threadTarget = 2
+            menCount = 4
+            menRemainingCount = 4
+            targetImage = "ship"
+            resourcesArray = Arrays.level4ResursesArray
+        case 5:
+            woodTarget = 4
+            stoneTarget = 2
+            threadTarget = 2
+            menCount = 3
+            menRemainingCount = 3
+            targetImage = "cart"
+            resourcesArray = Arrays.level5ResursesArray
+        default:
+            woodTarget = 2
+            stoneTarget = 2
+            threadTarget = 2
+            menCount = 5
+            menRemainingCount = 5
+            targetImage = "cart"
+            resourcesArray = Arrays.levelsArray.randomElement() ?? Arrays.level1ResursesArray
+            
+        }
     }
     
     func updateMenArray() {
@@ -344,6 +437,9 @@ struct Game: View {
         hideCollectButtonAnimation()
         withAnimation(Animation.easeInOut(duration: 0.5)) {
             buildingOpacity = 1
+        }
+        if sound {
+            SoundManager.instance.playSound(sound: "buildSound")
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             withAnimation(Animation.easeInOut(duration: 0.5)) {
@@ -368,6 +464,19 @@ struct Game: View {
         }
     }
     
+    func checkMenLife() {
+        for i in 0..<menInGameArray.count {
+            if cageArray[menInGameArray[i].yPosition][menInGameArray[i].xPosition].brokeIndex == 2 {
+                menInGameArray[i].status = 2
+                menRemainingCount -= 1
+            }
+        }
+    }
+    
+   func checkEndGameNoMen() -> Bool {
+      return  menInGameArray.filter { $0.status != 2}.isEmpty
+    }
+    
     func changePersSign() {
         switch selectedSkin {
         case 0:
@@ -378,6 +487,75 @@ struct Game: View {
             persSign = "persFrame3"
         case 3:
             persSign = "persFrame4"
+        default:
+            break
+        }
+    }
+    
+    func brokeCages() {
+        switch steps {
+        case 2:
+            for i in 0..<cageArray.count {
+                for j in 0..<cageArray[i].count {
+                    if i + j == 10 {
+                        cageArray[i][j].brokeIndex = 1
+                    }
+                }
+            }
+        case 3:
+            for i in 0..<cageArray.count {
+                for j in 0..<cageArray[i].count {
+                    if cageArray[i][j].brokeIndex == 1 {
+                        cageArray[i][j].brokeIndex = 2
+                    }
+                }
+            }
+        case 4:
+            for i in 0..<cageArray.count {
+                for j in 0..<cageArray[i].count {
+                    if i + j == 9 {
+                        cageArray[i][j].brokeIndex = 1
+                    }
+                }
+            }
+        case 5:
+            for i in 0..<cageArray.count {
+                for j in 0..<cageArray[i].count {
+                    if cageArray[i][j].brokeIndex == 1 {
+                        cageArray[i][j].brokeIndex = 2
+                    }
+                    if i + j == 8 {
+                        cageArray[i][j].brokeIndex = 1
+                    }
+                }
+            }
+        case 6:
+            for i in 0..<cageArray.count {
+                for j in 0..<cageArray[i].count {
+                    if i + j == 7 {
+                        cageArray[i][j].brokeIndex = 1
+                    }
+                }
+            }
+        case 7:
+            for i in 0..<cageArray.count {
+                for j in 0..<cageArray[i].count {
+                    if i + j == 6 {
+                        cageArray[i][j].brokeIndex = 1
+                    }
+                }
+            }
+        case 8:
+            for i in 0..<cageArray.count {
+                for j in 0..<cageArray[i].count {
+                    if cageArray[i][j].brokeIndex == 1 {
+                        cageArray[i][j].brokeIndex = 2
+                    }
+                    if i + j == 5 {
+                        cageArray[i][j].brokeIndex = 1
+                    }
+                }
+            }
         default:
             break
         }
@@ -411,14 +589,23 @@ struct Game: View {
         if resourcesArray[menInGameArray[selectedMenIndex].yPosition][menInGameArray[selectedMenIndex].xPosition].stone != 0 {
             resourcesArray[menInGameArray[selectedMenIndex].yPosition][menInGameArray[selectedMenIndex].xPosition].stone -= 1
             stoneCount += 1
+            if sound {
+                SoundManager.instance.playSound(sound: "stoneSound")
+            }
         }
         if resourcesArray[menInGameArray[selectedMenIndex].yPosition][menInGameArray[selectedMenIndex].xPosition].wood != 0 {
             resourcesArray[menInGameArray[selectedMenIndex].yPosition][menInGameArray[selectedMenIndex].xPosition].wood -= 1
             woodCount += 1
+            if sound {
+                SoundManager.instance.playSound(sound: "woodSound")
+            }
         }
         if resourcesArray[menInGameArray[selectedMenIndex].yPosition][menInGameArray[selectedMenIndex].xPosition].thread != 0 {
             resourcesArray[menInGameArray[selectedMenIndex].yPosition][menInGameArray[selectedMenIndex].xPosition].thread -= 1
             threadCount += 1
+            if sound {
+                SoundManager.instance.playSound(sound: "threadSound")
+            }
         }
         menInGameArray[selectedMenIndex].status = 1
         for i in 0..<menInGameArray.count {

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct YouWin: View {
     @EnvironmentObject var coordinator: Coordinator
+    @AppStorage("sound") var sound = true
     @AppStorage("languageIndex") var languageIndex = 0
     @AppStorage("levelNumber") var levelNumber = 1
     @AppStorage("coinCount") var coinCount = 0
@@ -139,6 +140,11 @@ struct YouWin: View {
                                 }
                             }
                     }
+                }
+            }
+            .onAppear {
+                if sound {
+                    SoundManager.instance.playSound(sound: "winSound")
                 }
             }
     }
