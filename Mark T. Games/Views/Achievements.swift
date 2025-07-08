@@ -33,9 +33,6 @@ struct Achievements: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: screenWidth*0.05)
-                //                    .onTapGesture {
-                //                        coinCount += 50
-                //                    }
                 Image("coinFrame")
                     .resizable()
                     .scaledToFit()

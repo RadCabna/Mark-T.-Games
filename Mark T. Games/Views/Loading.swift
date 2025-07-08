@@ -93,7 +93,6 @@ struct Loading: View {
                                 .shadow(color: .black, radius: 2)
                         }
                     }
-//                    .offset(y: height*0.05)
                     .rotationEffect(Angle(degrees: -90))
                     .opacity(loadingOpacity)
                 }

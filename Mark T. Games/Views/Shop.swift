@@ -40,9 +40,7 @@ struct Shop: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: screenWidth*0.05)
-//                    .onTapGesture {
-//                        coinCount += 50
-//                    }
+                
                 Image("coinFrame")
                     .resizable()
                     .scaledToFit()
@@ -54,7 +52,7 @@ struct Shop: View {
                             .shadow(color: .black, radius: 2)
                             .shadow(color: .black, radius: 2)
                     )
-                   
+                
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .padding(.top)
@@ -73,188 +71,188 @@ struct Shop: View {
                 .frame(maxHeight: .infinity, alignment: .top)
                 .padding(.top)
                 .opacity(darckOpacity)
-                HStack {
-                    ForEach(0..<shopSkinArray.count, id: \.self) { item in
+            HStack {
+                ForEach(0..<shopSkinArray.count, id: \.self) { item in
                     Image("shopItemFrame")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: screenWidth*0.18)
-                            .overlay(
-                                VStack {
-                                    Text("\(shopTextArray[languageIndex][1])#\(item+1)")
-                                        .font(Font.custom("PassionOne-Regular", size: screenWidth*0.025))
-                                        .foregroundColor(.white)
-                                        .shadow(color: .black, radius: 2)
-                                        .shadow(color: .black, radius: 2)
-                                    Image(shopSkinArray[item].name)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(height: screenWidth*0.12)
-                                    if shopSkinData[item] == 2 {
-                                        Image("activeShopButton")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: screenWidth*0.14)
-                                            .overlay(
-                                                Text(shopTextArray[languageIndex][3])
-                                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
-                                                    .foregroundColor(.white)
-                                                    .shadow(color: .black, radius: 2)
-                                                    .shadow(color: .black, radius: 2)
-                                            )
-                                            .offset(y: screenWidth*0.01)
-                                    }
-                                    if shopSkinData[item] == 1 {
-                                        Image("activeShopButton")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: screenWidth*0.14)
-                                            .overlay(
-                                                Text(shopTextArray[languageIndex][4])
-                                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
-                                                    .foregroundColor(.white)
-                                                    .shadow(color: .black, radius: 2)
-                                                    .shadow(color: .black, radius: 2)
-                                            )
-                                            .offset(y: screenWidth*0.01)
-                                            .onTapGesture {
-                                                selectSkin(item: item)
-                                            }
-                                    }
-                                    if shopSkinData[item] == 0 {
-                                        Image(coinCount >= shopSkinArray[item].cost ? "activeShopButton" : "unactiveShopButton")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: screenWidth*0.14)
-                                            .overlay(
-                                                HStack {
-                                                    Text(shopTextArray[languageIndex][5])
-                                                        .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
-                                                        .foregroundColor(.white)
-                                                        .shadow(color: .black, radius: 2)
-                                                        .shadow(color: .black, radius: 2)
-                                                    Text("\(shopSkinArray[item].cost)")
-                                                        .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
-                                                        .foregroundColor(.white)
-                                                        .shadow(color: .black, radius: 2)
-                                                        .shadow(color: .black, radius: 2)
-                                                    Image("coinImage")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .frame(width: screenWidth*0.016)
-                                                }
-                                            )
-                                            .offset(y: screenWidth*0.01)
-                                            .onTapGesture {
-                                                buySkin(item: item)
-                                            }
-                                    }
-                                }
-                                    .offset(y: screenWidth*0.004)
-                            )
-                    }
-                    Image("backButton")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: screenWidth*0.07)
-                        .scaleEffect(x: -1)
-                        .shadow(color: .black, radius: 4)
-                        .onTapGesture {
-                            changeShopSetAnimation()
-                        }
+                        .frame(width: screenWidth*0.18)
+                        .overlay(
+                            VStack {
+                                Text("\(shopTextArray[languageIndex][1])#\(item+1)")
+                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.025))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .black, radius: 2)
+                                    .shadow(color: .black, radius: 2)
+                                Image(shopSkinArray[item].name)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: screenWidth*0.12)
+                                if shopSkinData[item] == 2 {
+                                    Image("activeShopButton")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: screenWidth*0.14)
+                                        .overlay(
+                                            Text(shopTextArray[languageIndex][3])
+                                                .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
+                                                .foregroundColor(.white)
+                                                .shadow(color: .black, radius: 2)
+                                                .shadow(color: .black, radius: 2)
+                                        )
+                                        .offset(y: screenWidth*0.01)
+                                }
+                                if shopSkinData[item] == 1 {
+                                    Image("activeShopButton")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: screenWidth*0.14)
+                                        .overlay(
+                                            Text(shopTextArray[languageIndex][4])
+                                                .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
+                                                .foregroundColor(.white)
+                                                .shadow(color: .black, radius: 2)
+                                                .shadow(color: .black, radius: 2)
+                                        )
+                                        .offset(y: screenWidth*0.01)
+                                        .onTapGesture {
+                                            selectSkin(item: item)
+                                        }
+                                }
+                                if shopSkinData[item] == 0 {
+                                    Image(coinCount >= shopSkinArray[item].cost ? "activeShopButton" : "unactiveShopButton")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: screenWidth*0.14)
+                                        .overlay(
+                                            HStack {
+                                                Text(shopTextArray[languageIndex][5])
+                                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
+                                                    .foregroundColor(.white)
+                                                    .shadow(color: .black, radius: 2)
+                                                    .shadow(color: .black, radius: 2)
+                                                Text("\(shopSkinArray[item].cost)")
+                                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
+                                                    .foregroundColor(.white)
+                                                    .shadow(color: .black, radius: 2)
+                                                    .shadow(color: .black, radius: 2)
+                                                Image("coinImage")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: screenWidth*0.016)
+                                            }
+                                        )
+                                        .offset(y: screenWidth*0.01)
+                                        .onTapGesture {
+                                            buySkin(item: item)
+                                        }
+                                }
+                            }
+                                .offset(y: screenWidth*0.004)
+                        )
                 }
-                .offset(x: screenWidth - shopSetOffset, y: screenWidth*0.03)
+                Image("backButton")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: screenWidth*0.07)
+                    .scaleEffect(x: -1)
+                    .shadow(color: .black, radius: 4)
+                    .onTapGesture {
+                        changeShopSetAnimation()
+                    }
+            }
+            .offset(x: screenWidth - shopSetOffset, y: screenWidth*0.03)
             
-                HStack {
-                    Image("backButton")
+            HStack {
+                Image("backButton")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: screenWidth*0.07)
+                    .shadow(color: .black, radius: 4)
+                    .onTapGesture {
+                        changeShopSetAnimation()
+                    }
+                ForEach(0..<shopBGArray.count, id: \.self) { item in
+                    Image("shopItemFrame")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: screenWidth*0.07)
-                        .shadow(color: .black, radius: 4)
-                        .onTapGesture {
-                            changeShopSetAnimation()
-                        }
-                    ForEach(0..<shopBGArray.count, id: \.self) { item in
-                    Image("shopItemFrame")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: screenWidth*0.18)
-                            .overlay(
-                                VStack(spacing: screenWidth*0.02) {
-                                    Text("\(shopTextArray[languageIndex][2])#\(item+1)")
-                                        .font(Font.custom("PassionOne-Regular", size: screenWidth*0.025))
-                                        .foregroundColor(.white)
-                                        .shadow(color: .black, radius: 2)
-                                        .shadow(color: .black, radius: 2)
-                                    Image(shopBGArray[item].name)
+                        .frame(width: screenWidth*0.18)
+                        .overlay(
+                            VStack(spacing: screenWidth*0.02) {
+                                Text("\(shopTextArray[languageIndex][2])#\(item+1)")
+                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.025))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .black, radius: 2)
+                                    .shadow(color: .black, radius: 2)
+                                Image(shopBGArray[item].name)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: screenWidth*0.105)
+                                if shopBackgroundData[item] == 2 {
+                                    Image("activeShopButton")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(height: screenWidth*0.105)
-                                    if shopBackgroundData[item] == 2 {
-                                        Image("activeShopButton")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: screenWidth*0.14)
-                                            .overlay(
-                                                Text(shopTextArray[languageIndex][3])
-                                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
-                                                    .foregroundColor(.white)
-                                                    .shadow(color: .black, radius: 2)
-                                                    .shadow(color: .black, radius: 2)
-                                            )
-                                            .offset(y: screenWidth*0.01)
-                                    }
-                                    if shopBackgroundData[item] == 1 {
-                                        Image("activeShopButton")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: screenWidth*0.14)
-                                            .overlay(
-                                                Text(shopTextArray[languageIndex][4])
-                                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
-                                                    .foregroundColor(.white)
-                                                    .shadow(color: .black, radius: 2)
-                                                    .shadow(color: .black, radius: 2)
-                                            )
-                                            .offset(y: screenWidth*0.01)
-                                            .onTapGesture {
-                                                selectBG(item: item)
-                                            }
-                                    }
-                                    if shopBackgroundData[item] == 0 {
-                                        Image(coinCount >= shopBGArray[item].cost ? "activeShopButton" : "unactiveShopButton")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: screenWidth*0.14)
-                                            .overlay(
-                                                HStack {
-                                                    Text(shopTextArray[languageIndex][5])
-                                                        .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
-                                                        .foregroundColor(.white)
-                                                        .shadow(color: .black, radius: 2)
-                                                        .shadow(color: .black, radius: 2)
-                                                    Text("\(shopBGArray[item].cost)")
-                                                        .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
-                                                        .foregroundColor(.white)
-                                                        .shadow(color: .black, radius: 2)
-                                                        .shadow(color: .black, radius: 2)
-                                                    Image("coinImage")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .frame(width: screenWidth*0.016)
-                                                }
-                                            )
-                                            .offset(y: screenWidth*0.01)
-                                            .onTapGesture {
-                                                buyBG(item: item)
-                                            }
-                                    }
+                                        .frame(width: screenWidth*0.14)
+                                        .overlay(
+                                            Text(shopTextArray[languageIndex][3])
+                                                .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
+                                                .foregroundColor(.white)
+                                                .shadow(color: .black, radius: 2)
+                                                .shadow(color: .black, radius: 2)
+                                        )
+                                        .offset(y: screenWidth*0.01)
                                 }
-                                    .offset(y: screenWidth*0.004)
-                            )
-                    }
+                                if shopBackgroundData[item] == 1 {
+                                    Image("activeShopButton")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: screenWidth*0.14)
+                                        .overlay(
+                                            Text(shopTextArray[languageIndex][4])
+                                                .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
+                                                .foregroundColor(.white)
+                                                .shadow(color: .black, radius: 2)
+                                                .shadow(color: .black, radius: 2)
+                                        )
+                                        .offset(y: screenWidth*0.01)
+                                        .onTapGesture {
+                                            selectBG(item: item)
+                                        }
+                                }
+                                if shopBackgroundData[item] == 0 {
+                                    Image(coinCount >= shopBGArray[item].cost ? "activeShopButton" : "unactiveShopButton")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: screenWidth*0.14)
+                                        .overlay(
+                                            HStack {
+                                                Text(shopTextArray[languageIndex][5])
+                                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
+                                                    .foregroundColor(.white)
+                                                    .shadow(color: .black, radius: 2)
+                                                    .shadow(color: .black, radius: 2)
+                                                Text("\(shopBGArray[item].cost)")
+                                                    .font(Font.custom("PassionOne-Regular", size: screenWidth*0.023))
+                                                    .foregroundColor(.white)
+                                                    .shadow(color: .black, radius: 2)
+                                                    .shadow(color: .black, radius: 2)
+                                                Image("coinImage")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: screenWidth*0.016)
+                                            }
+                                        )
+                                        .offset(y: screenWidth*0.01)
+                                        .onTapGesture {
+                                            buyBG(item: item)
+                                        }
+                                }
+                            }
+                                .offset(y: screenWidth*0.004)
+                        )
                 }
-                .offset(x:-shopSetOffset, y: screenWidth*0.03)
+            }
+            .offset(x:-shopSetOffset, y: screenWidth*0.03)
         }
         
         .onAppear {
